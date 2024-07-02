@@ -15,6 +15,7 @@
 	import * as yup from 'yup';
     import { tick } from "svelte";
 	import { browser } from "$app/environment";
+	import { beforeNavigate } from '$app/navigation';
 
 	let text: string = "";
 	let time: Date;
@@ -22,6 +23,7 @@
 	let chosen = {};
 	let disabled = {};
 	let hidden = {};
+	let keyids = new Set<string>();
 
 	
 	// Reactive assignment
@@ -81,22 +83,19 @@
 					open: data.open,
                 };
 				const id:string = doc.id;
-				if(!(id in message)) {
-					if((browser) && (localStorage.hasOwnProperty(id)) && (Number(localStorage.getItem(id)) != -1)) {
-						chosen[id] = Number(localStorage.getItem(id));
+				const keyid:string = room_id + "_" + id;
+				keyids.add(keyid);
+				if((browser) && (localStorage.hasOwnProperty(keyid))) {
+					if(Number(localStorage.getItem(keyid)) != -1) {
+						chosen[id] = Number(localStorage.getItem(keyid));
 						Disable(id);
 					} else {
-						message[id] = "";
-						chosen[id] = -1;
-						disabled[id] = false;
-						hidden[id] = false;
-						if(browser) localStorage.setItem(id, '-1');
+						Enable(id);
 					}
 				} else {
-					if((browser) && (localStorage.hasOwnProperty(id)) && (Number(localStorage.getItem(id)) != -1)) {
-						chosen[id] = Number(localStorage.getItem(id));
-						Disable(id);
-					}
+					chosen[id] = -1;
+					Enable(id);
+					if(browser) localStorage.setItem(keyid, '-1');
 				}
                 return item;
             });
@@ -124,7 +123,7 @@
 			try {
 				const docRef = updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 				Disable(question_id);
-				if(browser) localStorage.setItem(question_id, chosen[question_id]);
+				if(browser) localStorage.setItem(room_id + "_" + question_id, chosen[question_id]);
 			} catch (e) {
 				console.error("Error updating document: ", e);
 			}
@@ -136,13 +135,21 @@
 		let renew = questions[q_index]["results"];
 		renew[chosenIndex] = --cnt;
 		try {
-			if(browser) localStorage.setItem(question_id, '-1');
+			if(browser) localStorage.setItem(room_id + "_" + question_id, '-1');
 			Enable(question_id);
 			const docRef = updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 		} catch (e) {
 			console.error("Error updating document: ", e);
 		}
 	}
+
+	beforeNavigate((navigation) => {
+		if(navigation.type !== 'leave'){
+			keyids.forEach((keyid) => {
+				localStorage.removeItem(keyid);
+			});
+		}
+	});
 </script>
 
 <svelte:head>
