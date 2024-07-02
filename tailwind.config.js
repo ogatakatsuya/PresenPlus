@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       animation: {
-        fadeIn: 'fadeIn 2s ease-in forwards',
-        fadeOut: 'fadeOut 2s ease-in forwards',
-        slideIn: 'slideIn 2s ease-out forwards',
+        fadeIn: 'fadeIn 1.5s ease-in forwards',
+        fadeOut: 'fadeOut 1.5s ease-in forwards',
+        slideIn: 'slideIn 1.5s ease-out forwards',
       },
       keyframes: {
         fadeIn: {
@@ -18,7 +18,7 @@ export default {
           '100%': { opacity: '0' },
         },
         slideIn: {
-          '0%': { transform: 'translateX(-50%)', opacity: '0' },
+          '0%': { transform: 'translateX(-25%)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
         },
       },
