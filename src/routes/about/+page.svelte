@@ -58,10 +58,10 @@ function registerElement(el) {
 <style>
     .animate-fadeIn {
         @apply opacity-0;
-        animation: fadeIn 2s ease-in forwards;
+        animation: fadeIn 1.5s ease-in forwards;
     }
     .animate-slideIn {
         @apply opacity-0;
-        animation: slideIn 2s ease-out forwards;
+        animation: slideIn 1.5s ease-out forwards;
     }
 </style>
