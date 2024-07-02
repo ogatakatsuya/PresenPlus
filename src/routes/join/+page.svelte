@@ -28,7 +28,6 @@
 		(snapshot: QuerySnapshot): any => {
 			roomList = snapshot.docs.map(doc => {
 				const data = doc.data();
-				console.log(data)
 				const item: Room = {
 					id: doc.id,
 					name: data.name,
