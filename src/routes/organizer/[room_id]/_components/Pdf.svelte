@@ -5,7 +5,7 @@
   let path = '';
   let errorMessage = '';
   let fileInput; // input要素を参照するための変数
-  let showButtons = ["navigation","timeInfo", "pageInfo"]
+  let showButtons = ["navigation", "zoom", "pageInfo"]
   let scale = 1.0; // 初期のスケール値を調整
 
   onMount(() => {
@@ -34,21 +34,14 @@
   }
 </script>
 
-<style>
-  .pdf-container {
-    height: 100vh; /* 画面全高 */
-    overflow: hidden; /* スクロールバーを非表示 */
-  }
-</style>
-
-<input id="fileInput" type="file" on:change={handleFileChange} class="z-10"/>
+<input id="fileInput" type="file" on:change={handleFileChange} class="absolute top-80 inset-x-0 mx-auto z-10 block w-1/3 bg-white border-2 border-gray-200 shadow-sm rounded-lg text-sm font-noto cursor-pointer focus:border-blue-500 focus:ring-blue-500 file:bg-gray-100 file:border-0 file:me-4 file:py-3 file:px-4">
 
 {#if errorMessage}
   <p style="color: red;">{errorMessage}</p>
 {/if}
 
 {#if path}
-  <div class="pdf-container z-10">
+  <div class="pdf-container overflow-hidden z-10 absolute top-12 bottom-0 w-full xl:-top-4">
       <PdfViewer url={path} scale={scale} showButtons={showButtons} showBorder={false}/>
   </div>
 {/if}
