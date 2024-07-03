@@ -44,7 +44,6 @@
 	let results = [0];
 	let selected = 0;
 	let makingPresen = false;
-	let bgcolor = "blue";
 
 	function addOption() {
 		options = [...options, ''];
@@ -140,13 +139,11 @@
 	function presentation() {
 		if(makingPresen){
 			makingPresen = false;
-			bgcolor = "blue";
 			document.removeEventListener('touchmove', noscroll);
 			document.removeEventListener('wheel', noscroll);
 		} else {
 			makingPresen = true;
 			location.href = '#presen';
-			bgcolor = "red";
 			document.addEventListener('touchmove', noscroll, {passive: false});
 			document.addEventListener('wheel', noscroll, {passive: false});
 		}
@@ -196,17 +193,19 @@
 	</form>
 
 	<!-- Scroll -->
-	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-{bgcolor}-600 hover:bg-{bgcolor}-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
-		{#if makingPresen}
+	{#if makingPresen}
+	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-red-600 hover:bg-red-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
 		<svg class="w-[28px] h-[28px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path fill-rule="evenodd" d="M8 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H8Zm7 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1Z" clip-rule="evenodd"/>
 		</svg>
-		{:else}
+	</button>
+	{:else}
+	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
 		<svg class="w-[28px] h-[28px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z" clip-rule="evenodd"/>
 		</svg>
-		{/if}
 	</button>
+	{/if}
 </div>
 
 <!-- Modal -->
