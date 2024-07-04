@@ -1,7 +1,21 @@
-<script>
+<script lang="ts">
+	import { onMount} from 'svelte';
 	import { page } from '$app/stores';
 	import logo from '$lib/images/Logo_onlytext_mini.png';
-	import github from '$lib/images/github.svg';
+	import { Hamburger } from 'svelte-hamburgers';
+	import Menu from './Menu.svelte';
+
+	let open: boolean = false;
+	let width :number;
+
+	onMount(() => {
+		width = window.innerWidth;
+		window.addEventListener('resize', handleResize);
+	});
+
+	function handleResize() {
+		width = window.innerWidth;
+	}
 </script>
 
 <header>
@@ -11,7 +25,7 @@
 				<img src={logo} alt="SvelteKit" class="logo" />
 			</a>
 		</div>
-
+	{#if width>768}
 		<nav>
 			<ul>
 				<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
@@ -28,7 +42,17 @@
 				</li>
 			</ul>
 		</nav>
+	{:else}
+		<div class="hamburger-container">
+			<Hamburger bind:open
+			--color =  "#E5E1D3"
+			--padding = "0px"/>
+		</div>
+	{/if}
 	</div>
+	{#if width <= 768}
+		<Menu bind:open />
+	{/if}
 </header>
 
 <style>
@@ -47,6 +71,7 @@
 		width: 100%;
 		background-color: var(--background-color);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		height: 60px; 
 	}
 
 	.header-container {
@@ -56,6 +81,7 @@
 		width: 100%;
 		padding: 1rem;
 		position: relative;
+		height: 100%; /* 親の高さに合わせる */
 	}
 
 	.logo-container {
@@ -104,6 +130,13 @@
 	nav a:hover {
 		color: var(--hover-text-color);
 	}
+
+	.hamburger-container {
+		position: absolute;
+		right: 1rem;
+		top: 1rem; /* Center vertically within header */
+	}
+
 
 	@media (min-width: 768px) {
 		.header-container {
