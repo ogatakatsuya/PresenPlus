@@ -1,8 +1,5 @@
 name: Eslint
-on:
-  pull_request:
-    branches:
-      - main
+on: ["push", "pull_request"]
 jobs:
   test:
     name: Check the source code
