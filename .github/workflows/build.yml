@@ -1,4 +1,4 @@
-name: Run API Tests on Pull Request
+name: Build test
 
 on: ["push"]
 
@@ -10,7 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build and Start Services
+      - name: Build and Start Container
         run: |
           docker-compose build
           docker-compose up -d
+
+      - name: Build sveltekit
+        run: |
+          docker container exec svelte_container npm run build
