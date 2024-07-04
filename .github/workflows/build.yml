@@ -3,7 +3,7 @@ name: Build test
 on: ["push"]
 
 jobs:
-  pytest_coverage:
+  build_test:
     runs-on: ubuntu-latest
 
     steps:
