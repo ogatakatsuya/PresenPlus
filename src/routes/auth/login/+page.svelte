@@ -18,8 +18,8 @@
 		password: yup.string()
 			.min(6)
 			.max(255)
-			.matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.?!/-])[a-zA-Z0-9.?!/-]/, 
-				'Password must contain at least \none number, one lowercase letter,\none uppercase letter, one symbol')
+			.matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9.?!/-]/, 
+				'Password must contain at least \none number, one lowercase letter,\none uppercase letter')
 			.required(),
 	});
 

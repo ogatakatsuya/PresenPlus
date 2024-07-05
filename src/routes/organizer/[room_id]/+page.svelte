@@ -15,6 +15,9 @@
 	import PdfViewer from "./_components/Pdf.svelte";
 	import CloseButton from "./_components/CloseButton.svelte";
 	import Chart from './_components/PieChart.svelte';
+	import { createForm } from 'felte';
+	import { validator } from '@felte/validator-yup';
+	import * as yup from 'yup';
 
 	type Comment = {
 		id: string;
@@ -45,6 +48,15 @@
 	let selected = 0;
 	let makingPresen = false;
 
+	const schema = yup.object({
+        question: yup.string().required("Question title is required"),
+		option: yup.string().required("Option name is required"),
+    });
+
+	const { form, errors, isValid } = createForm({
+        extend: validator({ schema }),
+    });
+
 	function addOption() {
 		options = [...options, ''];
 		results = [...results, 0];
@@ -63,17 +75,19 @@
 	}
 
 	const addQuestion = async () => {
-		const questionData: Question = {
-			text: question,
-			options: options,
-			results: results,
-			open: false,
-		};
-		try {
-			await addDoc(collection(db, `Rooms/${room_id}/Questions`), questionData);
-			showCreateModal = false;
-		} catch (e) {
-			console.error("Error adding document: ", e);
+		if($isValid) {
+			const questionData: Question = {
+				text: question,
+				options: options,
+				results: results,
+				open: false,
+			};
+			try {
+				await addDoc(collection(db, `Rooms/${room_id}/Questions`), questionData);
+				showCreateModal = false;
+			} catch (e) {
+				console.error("Error adding document: ", e);
+			}
 		}
 	}
 
@@ -211,18 +225,22 @@
 <!-- Modal -->
 {#if showCreateModal}
     <Modal bind:showModal={showCreateModal}>
+		<form use:form>
 		<label for="inputQuestion" class="inline-block mb-2 mt-4 ml-1 font-noto">Question Title</label>
-		<input bind:value={question} type="text" placeholder="Question" id="inputQuestion" class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
+		<input bind:value={question} name="question" type="text" placeholder="Question" id="inputQuestion" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
+		<div class="text-sm text-red-600 mb-6 ml-2 pt-1" style="visibility: {$errors.question ? "visible" : "hidden"}">{$errors.question}</div>
 		
 		<label for="inputOptions" class="inline-block my-2 ml-1 font-noto">Input Options</label>
 		{#each options as option, index}
 			<div class="flex items-center">
 				<input 
 					type="text" 
+					name="option" 
 					placeholder={`Option${index + 1}`} 
 					class="my-1 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
 					bind:value={options[index]}
 				>
+				<div class="text-sm text-red-600" style="padding-bottom: 10px; visibility: {$errors.option ? "visible" : "hidden"}">{$errors.option}</div>
 				<button on:click={() => removeOption(index)} class="ml-2 p-2 rounded-full bg-blue-100 hover:bg-blue-200">
 					<svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"/>
@@ -247,6 +265,7 @@
 				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
 			</svg>
 		</button>
+		</form>
     </Modal>
 {/if}
 
