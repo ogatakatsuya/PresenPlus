@@ -53,8 +53,8 @@
 
 
 
-<h1 class="mb-6 text-lg font-bold">Let's join presentation room!</h1>
-<div class="flex gap-5 max-w-none flex-wrap justify-center ">
+<h1 class="my-6 text-lg font-bold">Let's join presentation room!</h1>
+<div class="flex gap-5 max-w-none flex-wrap justify-center px-20 pb-10">
 	{#each roomList as room}
 		{#if room.exist}
 		<div class="flex sm:w-72 w-4/5 sm:flex-col flex-row overflow-hidden rounded-lg shadow-lg">

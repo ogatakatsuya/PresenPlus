@@ -121,7 +121,7 @@
 			let renew = questions[q_index]["results"];
 			renew[chosenIndex] = ++cnt;
 			try {
-				const docRef = updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
+				updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 				Disable(question_id);
 				if(browser) localStorage.setItem(room_id + "_" + question_id, chosen[question_id]);
 			} catch (e) {
@@ -137,7 +137,7 @@
 		try {
 			if(browser) localStorage.setItem(room_id + "_" + question_id, '-1');
 			Enable(question_id);
-			const docRef = updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
+			updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 		} catch (e) {
 			console.error("Error updating document: ", e);
 		}

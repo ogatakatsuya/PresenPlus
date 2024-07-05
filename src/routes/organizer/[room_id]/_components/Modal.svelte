@@ -7,11 +7,10 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-<dialog
-	bind:this={dialog}
-	on:close={() => (showModal = false)}
-	on:click|self={() => dialog.close()}
->
+<dialog bind:this={dialog}>
+<!-- on:close={() => (showModal = false)}
+	on:click|self={() => dialog.close()}-->
+
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
 		<slot name="header" />
@@ -27,7 +26,7 @@
 
 <style>
 	dialog {
-		max-width: 32em;
+		max-width: 40em;
 		border-radius: 0.2em;
 		border: none;
 		padding: 0;
