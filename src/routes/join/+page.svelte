@@ -64,7 +64,7 @@
 			<div class="flex sm:flex-col flex-row justify-between flex-1 p-6 sm:pr-6 pr-14 bg-white relative font-noto">
 				<div class="flex-1">
 					<p class="text-xl font-semibold text-neutral-600">{room.name}</p>
-					<p class="mt-3 text-base text-gray-500">{room.description}</p>
+					<p class="mt-3 text-base text-gray-500 line-clamp-3">{room.description}</p>
 				</div>
 				<div class="sm:mt-6 sm:static absolute right-3 bottom-3">
 					<button 
@@ -84,7 +84,7 @@
 		</div>
 		{#if room.showModal}
 			<Modal bind:showModal={room.showModal}>
-				<h2 slot="header" class="font-noto font-bold text-lg relative mb-6 pr-6 after:absolute after:left-0 after:w-full after:-bottom-3 after:bottom-0 after:h-[2px] after:bg-gray-300">
+				<h2 slot="header" class="font-noto font-bold text-lg relative mb-6 pr-6 after:absolute after:left-0 after:w-full after:-bottom-2 after:h-[2px] after:bg-gray-300">
 					<div class="inline-block font-extralight text-sm mr-2 px-3 py-1 rounded-full text-white bg-gray-500">Room</div>
 					{room.name}
 				</h2>
