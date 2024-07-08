@@ -3,6 +3,7 @@
 		doc,
 		addDoc,
 		updateDoc,
+		getDoc,
 		collection,
         onSnapshot,
         query,
@@ -24,8 +25,10 @@
 	let disabled = {};
 	let hidden = {};
 	let keyids = new Set<string>();
+	let room_name: string;
+	let room_description: string;
+	let room_exist: boolean = true;
 
-	
 	// Reactive assignment
     const room_id: string = $page.params.room_id;
 
@@ -51,6 +54,14 @@
 		open: boolean;
     }
     let questions: Question[] = [];
+
+	(async () => {
+		let ref = await getDoc(doc(db, `Rooms`, `${room_id}`));
+		let snap = ref.data();
+		room_name = snap.name;
+		room_description = snap.description;
+		room_exist = snap.exist;
+	})();
 
 	const addComment = async () => {
 		time = new Date();
@@ -90,6 +101,7 @@
 						chosen[id] = Number(localStorage.getItem(keyid));
 						Disable(id);
 					} else {
+						chosen[id] = -1;
 						Enable(id);
 					}
 				} else {
@@ -104,7 +116,7 @@
 	const Disable = (question_id: string) => {
 		disabled[question_id] = true;
 		hidden[question_id] = true;
-		message[question_id] = "投票完了";
+		message[question_id] = "Voted";
 	}
 	const Enable = (question_id: string) => {
 		disabled[question_id] = false;
@@ -114,7 +126,7 @@
 	const vote = (question_id: string, q_index: number) => {
 		let chosenIndex = chosen[question_id];
 		if (chosenIndex === -1) {
-			message[question_id] = "答えを選択してください．";
+			message[question_id] = "Choose your answer";
 		} else { 
 			message[question_id] = "";
 			let cnt = questions[q_index]["results"][chosenIndex];
@@ -144,7 +156,7 @@
 	}
 
 	beforeNavigate((navigation) => {
-		if(navigation.type !== 'leave'){
+		if(navigation.type === 'popstate' || navigation.type === `link`){
 			keyids.forEach((keyid) => {
 				localStorage.removeItem(keyid);
 			});
@@ -158,6 +170,19 @@
 </svelte:head>
 
 <div class="p-8">
+	<h2 class="font-noto font-bold text-lg relative mb-6 pr-16 after:absolute after:left-0 after:w-full after:-bottom-3 after:h-[2px] after:bg-gray-300">
+		<div class="inline-block font-extralight text-sm mr-2 px-3 py-1 rounded-full text-white bg-gray-500">Room</div>
+		{#if room_name}{room_name}{/if}
+	</h2>
+	<div class="relative text-gray-500 text-sm font-noto font-light px-4 py-2 mt-2 mb-6 before:absolute before:w-1 before:h-full before:left-1 before:top-0 before:bg-gray-300">
+		{#if room_description}{room_description}{/if}
+	</div>
+	<a href="/join" class="absolute right-10 top-20 inline-flex items-center justify-center rounded-full p-2 mt-2 bg-gray-400 hover:bg-gray-500 focus:outline-none">
+		<svg class="w-[24px] h-[24px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+			<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+		</svg>
+	</a>
+	{#if !room_exist}
 	<h2 class="mb-4 font-bold text-center">Questions accepting answer</h2>
 	<div class="mx-auto max-w-lg my-4">
 		<div>
@@ -181,7 +206,18 @@
 						<label for="{question.id}_{index}" class="flex w-full space-x-2 text-sm"> {option} </label>
 					</div>
 				{/each}
-				<div class="text-sm text-red-600 font-noto mb-1" style="padding: 10px 1rem; visibility: {message[question.id] ? "visible" : "hidden"}">{message[question.id]}</div>
+				<div class="text-sm text-red-600 flex p-1 pb-4 leading-6" style="visibility: {message[question.id] ? "visible" : "hidden"}">
+					{#if message[question.id] != "Voted"}
+					<svg class="w-6 h-6 text-red-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+					</svg>
+					{:else}
+					<svg class="w-6 h-6 text-red-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+					</svg>
+					{/if}
+					{message[question.id]}
+				</div>
 				{#if !hidden[question.id]}
 				<button on:click={() => vote(question.id, q_index)}
 					class="mb-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -204,7 +240,7 @@
 
 	<h2 class="mt-10 mb-4 font-bold text-center">Send your comment!</h2>
 	<form use:form on:submit|preventDefault = {addComment} class="max-w-md mx-auto">
-		<div class="relative flex items-center">
+		<div class="relative flex items-center mb-1">
 			<input bind:value={text} type="comment" name="comment" id="comment" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Input comment" />
 			<button type="submit" class="inline-flex items-center justify-center rounded-full h-12 p-3 ml-2 text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 transform rotate-90">
@@ -212,6 +248,15 @@
 				</svg>
 			</button>
 		</div>
-		<div class="text-sm text-red-600" style="padding-bottom: 10px; visibility: {$errors.comment ? "visible" : "hidden"}">{$errors.comment}</div>
+		<div class="text-sm text-red-600 flex ml-5 pb-5 leading-6" style="visibility: {$errors.comment ? "visible" : "hidden"}">
+			<svg class="w-6 h-6 text-red-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+			</svg>
+			{$errors.comment}
+		</div>
 	</form>
+
+	{:else}
+	<div class="m-6">This room is closed. If you have any problem, please contact the organizer.</div>
+	{/if}
 </div>
