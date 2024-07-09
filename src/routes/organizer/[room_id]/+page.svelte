@@ -186,7 +186,7 @@
 	</div>
 
 	<!-- Create Question -->
-	<button on:click={init} class="absolute bottom-6 left-6 m-1 z-20 text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
+	<button on:click={init} class="absolute bottom-6 left-6 m-1 z-20 text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-auto p-3 text-center">
 		<svg class="w-[28px] h-[28px] dtext-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 			<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
 		</svg>
@@ -208,13 +208,13 @@
 
 	<!-- Scroll -->
 	{#if makingPresen}
-	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-red-600 hover:bg-red-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
+	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-red-600 hover:bg-red-700 focus:ring-f focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm w-auto p-3 text-center">
 		<svg class="w-[28px] h-[28px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path fill-rule="evenodd" d="M8 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H8Zm7 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1Z" clip-rule="evenodd"/>
 		</svg>
 	</button>
 	{:else}
-	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto p-3 text-center">
+	<button on:click={presentation} class="absolute bottom-6 right-6 m-1 z-20 text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-f focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-auto p-3 text-center">
 		<svg class="w-[28px] h-[28px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 			<path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z" clip-rule="evenodd"/>
 		</svg>
@@ -260,7 +260,7 @@
 		<button on:click={addQuestion} class="my-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
 			Create
 		</button>
-		<button on:click={() => showCreateModal = false} class="absolute top-2 right-2 bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full p-2.5">
+		<button on:click={() => showCreateModal = false} class="absolute top-2 right-2 bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full p-2.5">
 			<svg class="w-6 h-6 text-gray-800 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
 			</svg>
@@ -274,7 +274,7 @@
 	<div style="width: 32rem;">
 		<h2 class="text-center text-2xl font-bold font-noto mb-4">{questionName}</h2>
 		<Chart {room_id} {question_id}/>
-		<button on:click={closeQuestion} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+		<button on:click={closeQuestion} class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
 			Close Question
 		</button>
 	</div>

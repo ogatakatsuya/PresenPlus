@@ -27,8 +27,8 @@
 
 <style>
 	dialog {
-		max-width: 32em;
-		border-radius: 0.2em;
+		max-width: min(32em, calc(100vw - 2em));
+		border-radius: 0.6em;
 		border: none;
 		padding: 0;
 	}
@@ -36,7 +36,7 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	dialog > div {
-		padding: 1em;
+		padding: 1.5em;
 	}
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
