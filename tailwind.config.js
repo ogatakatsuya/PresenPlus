@@ -28,7 +28,7 @@ export default {
         },
       },
       fontFamily: {
-        noto: ["Noto Sans JP"],
+        noto: ["Noto Sans JP", "Verdana", "Roboto", "Droid Sans", "游ゴシック", "YuGothic", "メイリオ", "Meiryo", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
         openSans: ["Open Sans", "sans-serif"],
       },

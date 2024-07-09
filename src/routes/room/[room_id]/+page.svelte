@@ -96,9 +96,9 @@
 				const id:string = doc.id;
 				const keyid:string = room_id + "_" + id;
 				keyids.add(keyid);
-				if((browser) && (localStorage.hasOwnProperty(keyid))) {
-					if(Number(localStorage.getItem(keyid)) != -1) {
-						chosen[id] = Number(localStorage.getItem(keyid));
+				if((browser) && (sessionStorage.hasOwnProperty(keyid))) {
+					if(Number(sessionStorage.getItem(keyid)) != -1) {
+						chosen[id] = Number(sessionStorage.getItem(keyid));
 						Disable(id);
 					} else {
 						chosen[id] = -1;
@@ -107,7 +107,7 @@
 				} else {
 					chosen[id] = -1;
 					Enable(id);
-					if(browser) localStorage.setItem(keyid, '-1');
+					if(browser) sessionStorage.setItem(keyid, '-1');
 				}
                 return item;
             });
@@ -135,7 +135,7 @@
 			try {
 				updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 				Disable(question_id);
-				if(browser) localStorage.setItem(room_id + "_" + question_id, chosen[question_id]);
+				if(browser) sessionStorage.setItem(room_id + "_" + question_id, chosen[question_id]);
 			} catch (e) {
 				console.error("Error updating document: ", e);
 			}
@@ -147,7 +147,7 @@
 		let renew = questions[q_index]["results"];
 		renew[chosenIndex] = --cnt;
 		try {
-			if(browser) localStorage.setItem(room_id + "_" + question_id, '-1');
+			if(browser) sessionStorage.setItem(room_id + "_" + question_id, '-1');
 			Enable(question_id);
 			updateDoc(doc(db, `Rooms/${room_id}/Questions`, `${question_id}`), {"results": renew});
 		} catch (e) {
@@ -158,7 +158,7 @@
 	beforeNavigate((navigation) => {
 		if(navigation.type === 'popstate' || navigation.type === `link`){
 			keyids.forEach((keyid) => {
-				localStorage.removeItem(keyid);
+				sessionStorage.removeItem(keyid);
 			});
 		}
 	});
@@ -182,7 +182,9 @@
 			<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
 		</svg>
 	</a>
+
 	{#if room_exist}
+	<!-- Question -->
 	<h2 class="mb-4 font-bold text-center">Questions accepting answer</h2>
 	<div class="mx-auto max-w-lg my-4">
 		<div>
@@ -238,6 +240,7 @@
 		</div>
 	</div>
 
+	<!-- Send Comment-->
 	<h2 class="mt-10 mb-4 font-bold text-center">Send your comment!</h2>
 	<form use:form on:submit|preventDefault = {addComment} class="max-w-md mx-auto">
 		<div class="relative flex items-center mb-1">
