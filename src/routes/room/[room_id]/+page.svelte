@@ -59,6 +59,7 @@
 	}
 
 	onMount(async() => {
+		console.log("in onMount()");
 		await initFirebaseApp();
 		
 		text = "";
