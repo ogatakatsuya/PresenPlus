@@ -5,6 +5,12 @@
 	import "../app.css";
 	import fabicon from '$lib/images/fabicon.ico'
 	//TODO　layout.svelteをオリジナルのものに
+	import { onMount } from 'svelte';
+	import { initFirebaseApp } from '$lib/firebase';
+
+	onMount(async () => {
+		await initFirebaseApp();
+	});
 </script>
 
 <svelte:head>
