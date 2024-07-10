@@ -17,10 +17,8 @@
     import { tick } from "svelte";
 	import { browser } from "$app/environment";
 	import { beforeNavigate } from '$app/navigation';
-	import { onMount } from "svelte";
-	import { initFirebaseApp } from '$lib/firebase';
 
-	let text: string;
+	let text: string = "";;
 	let time: Date;
 	let message: QuestionData = {};
 	let chosen: QuestionData = {};
@@ -30,7 +28,7 @@
 	let room_name: string;
 	let room_description: string;
 	let room_exist: boolean = true;
-    let room_id: string = $page.params.room_id;
+    const room_id: string = $page.params.room_id;
 	let questions: Question[] = [];
 
     const schema = yup.object({
@@ -58,19 +56,7 @@
 		[key: string]: any;
 	}
 
-	onMount(async() => {
-		console.log("in onMount()");
-		
-		text = "";
-		message = {};
-		chosen = {};
-		disabled = {};
-		hidden = {};
-		keyids = new Set<string>();
-		room_exist = true;
-		room_id = $page.params.room_id;
-		questions = [];
-
+	(async () => {
 		let ref = await getDoc(doc(db, `Rooms`, `${room_id}`));
 		let snap = ref.data();
 		if(snap !== undefined) {
@@ -78,40 +64,40 @@
 			room_description = snap.description;
 			room_exist = snap.exist;
 		}
+	})();
 
-		onSnapshot(
-			query(collection(db, `/Rooms/${room_id}/Questions`)),
-			(snapshot: QuerySnapshot) => {
-				questions = snapshot.docs.map((doc) => {
-					const data = doc.data();
-					const item: Question = {
-						id: doc.id,
-						text: data.text,
-						options: data.options,
-						results: data.results,
-						open: data.open,
-					};
-					const id:string = doc.id;
-					const keyid:string = room_id + "_" + id;
-					keyids.add(keyid);
-					if((browser) && (sessionStorage.hasOwnProperty(keyid))) {
-						if(Number(sessionStorage.getItem(keyid)) != -1) {
-							chosen[id] = Number(sessionStorage.getItem(keyid));
-							Disable(id);
-						} else {
-							chosen[id] = -1;
-							Enable(id);
-						}
+	onSnapshot(
+		query(collection(db, `/Rooms/${room_id}/Questions`)),
+		(snapshot: QuerySnapshot) => {
+			questions = snapshot.docs.map((doc) => {
+				const data = doc.data();
+				const item: Question = {
+					id: doc.id,
+					text: data.text,
+					options: data.options,
+					results: data.results,
+					open: data.open,
+				};
+				const id:string = doc.id;
+				const keyid:string = room_id + "_" + id;
+				keyids.add(keyid);
+				if((browser) && (sessionStorage.hasOwnProperty(keyid))) {
+					if(Number(sessionStorage.getItem(keyid)) != -1) {
+						chosen[id] = Number(sessionStorage.getItem(keyid));
+						Disable(id);
 					} else {
 						chosen[id] = -1;
 						Enable(id);
-						if(browser) sessionStorage.setItem(keyid, '-1');
 					}
-					return item;
-				});
-			}
-		);
-	});
+				} else {
+					chosen[id] = -1;
+					Enable(id);
+					if(browser) sessionStorage.setItem(keyid, '-1');
+				}
+				return item;
+			});
+		}
+	);
 
 	const addComment = async () => {
 		time = new Date();

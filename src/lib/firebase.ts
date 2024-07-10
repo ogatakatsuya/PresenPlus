@@ -11,7 +11,11 @@ export let db: Firestore;
 export let auth: Auth;
 export const provider = new GoogleAuthProvider();
 
-export async function initFirebaseApp() {    
+export async function initFirebaseApp() {
+    if (getApps().length !== 0) {
+        console.log('Firebase app already initialized.');
+        return;
+    }
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
