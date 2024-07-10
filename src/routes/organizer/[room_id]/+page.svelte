@@ -113,7 +113,7 @@
 		}
 	);
 
-	function noscroll(e){e.preventDefault();}
+	function noscroll(e: Event){e.preventDefault();}
 	function presentation() {
 		if(makingPresen){
 			makingPresen = false;

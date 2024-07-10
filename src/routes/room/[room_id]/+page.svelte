@@ -20,17 +20,16 @@
 
 	let text: string = "";
 	let time: Date;
-	let message = {};
-	let chosen = {};
-	let disabled = {};
-	let hidden = {};
-	let keyids = new Set<string>();
+	let message: QuestionData = {};
+	let chosen: QuestionData = {};
+	let disabled: QuestionData = {};
+	let hidden: QuestionData = {};
+	let keyids: Set<string> = new Set<string>();
 	let room_name: string;
 	let room_description: string;
 	let room_exist: boolean = true;
-
-	// Reactive assignment
     const room_id: string = $page.params.room_id;
+	let questions: Question[] = [];
 
     const schema = yup.object({
         comment: yup.string().required("Comment is required"),
@@ -47,21 +46,58 @@
 		time: Date;
 	}
     type Question = {
-        id?: string;
+        id: string;
         text: string;
         options: Array<string>;
 		results: Array<number>;
 		open: boolean;
     }
-    let questions: Question[] = [];
+	interface QuestionData {
+		[key: string]: any;
+	}
 
 	(async () => {
 		let ref = await getDoc(doc(db, `Rooms`, `${room_id}`));
 		let snap = ref.data();
-		room_name = snap.name;
-		room_description = snap.description;
-		room_exist = snap.exist;
+		if(snap !== undefined) {
+			room_name = snap.name;
+			room_description = snap.description;
+			room_exist = snap.exist;
+		}
 	})();
+
+	onSnapshot(
+		query(collection(db, `/Rooms/${room_id}/Questions`)),
+		(snapshot: QuerySnapshot) => {
+			questions = snapshot.docs.map((doc) => {
+				const data = doc.data();
+				const item: Question = {
+					id: doc.id,
+					text: data.text,
+					options: data.options,
+					results: data.results,
+					open: data.open,
+				};
+				const id:string = doc.id;
+				const keyid:string = room_id + "_" + id;
+				keyids.add(keyid);
+				if((browser) && (sessionStorage.hasOwnProperty(keyid))) {
+					if(Number(sessionStorage.getItem(keyid)) != -1) {
+						chosen[id] = Number(sessionStorage.getItem(keyid));
+						Disable(id);
+					} else {
+						chosen[id] = -1;
+						Enable(id);
+					}
+				} else {
+					chosen[id] = -1;
+					Enable(id);
+					if(browser) sessionStorage.setItem(keyid, '-1');
+				}
+				return item;
+			});
+		}
+	);
 
 	const addComment = async () => {
 		time = new Date();
@@ -81,38 +117,6 @@
 			}
 		}
 	}
-    onSnapshot(
-        query(collection(db, `/Rooms/${room_id}/Questions`)),
-        (snapshot: QuerySnapshot) => {
-            questions = snapshot.docs.map((doc) => {
-                const data = doc.data();
-                const item: Question = {
-                    id: doc.id,
-                    text: data.text,
-					options: data.options,
-					results: data.results,
-					open: data.open,
-                };
-				const id:string = doc.id;
-				const keyid:string = room_id + "_" + id;
-				keyids.add(keyid);
-				if((browser) && (sessionStorage.hasOwnProperty(keyid))) {
-					if(Number(sessionStorage.getItem(keyid)) != -1) {
-						chosen[id] = Number(sessionStorage.getItem(keyid));
-						Disable(id);
-					} else {
-						chosen[id] = -1;
-						Enable(id);
-					}
-				} else {
-					chosen[id] = -1;
-					Enable(id);
-					if(browser) sessionStorage.setItem(keyid, '-1');
-				}
-                return item;
-            });
-        }
-    );
 	const Disable = (question_id: string) => {
 		disabled[question_id] = true;
 		hidden[question_id] = true;
@@ -189,7 +193,7 @@
 	<div class="mx-auto max-w-lg my-4">
 		<div>
 			{#each questions as question, q_index}
-			{#if question.open}
+			{#if question !== undefined && question.open}
 			<details class="group rounded-lg bg-gray-50 border border-gray-300 my-2">
 				<summary class="flex cursor-pointer list-none items-center justify-between p-4 pl-6 font-noto font-medium text-secondary-900">
 					{question.text}
