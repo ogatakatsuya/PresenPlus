@@ -18,6 +18,7 @@
 	import { browser } from "$app/environment";
 	import { beforeNavigate } from '$app/navigation';
 	import { onMount } from "svelte";
+	import { initFirebaseApp } from '$lib/firebase';
 
 	let text: string;
 	let time: Date;
@@ -58,6 +59,8 @@
 	}
 
 	onMount(async() => {
+		await initFirebaseApp();
+		
 		text = "";
 		message = {};
 		chosen = {};
