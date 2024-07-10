@@ -14,7 +14,7 @@
     import { browser } from "$app/environment";
 
     type Question = {
-		id?: string;
+		id: string;
 		text: string;
 		options: string[];
 		results: number[];
@@ -69,7 +69,7 @@
         }
     }
 
-    function handleClickOutside(event) {
+    function handleClickOutside(event: Event) {
         if (showQ && Qlist && !Qlist.contains(event.target)) {
             showQ = false;
         }

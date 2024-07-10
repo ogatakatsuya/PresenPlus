@@ -18,7 +18,7 @@
 	import { browser } from "$app/environment";
 	import { beforeNavigate } from '$app/navigation';
 
-	let text: string = "";;
+	let text: string = "";
 	let time: Date;
 	let message: QuestionData = {};
 	let chosen: QuestionData = {};
