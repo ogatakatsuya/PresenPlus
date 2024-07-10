@@ -78,12 +78,12 @@
 </script>
 
 <div class="absolute z-20 left-6 top-6 w-80">
-    <div bind:this={Qlist} class="mr-2 font-noto">
+    <div bind:this={Qlist} class="font-noto w-full">
         <button on:click={() => showQ = !showQ} class="relative w-full h-12 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
             <span class="flex items-center">
-                <span class="ml-3 block truncate">{#if JSON.stringify(questionList) !== JSON.stringify([])}{questionList[selected]['text']}{/if}</span>
+                <span class="ml-2 block truncate">{#if JSON.stringify(questionList) !== JSON.stringify([])}{questionList[selected]['text']}{/if}</span>
             </span>
-            <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+            <span class="pointer-events-none absolute inset-y-0 right-0 ml-2 flex items-center pr-2">
                 <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
                 </svg>
@@ -93,10 +93,10 @@
         <ul class="mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             {#each questionList as questionItem, index}
             <div class="flex relative cursor-default select-none w-full text-gray-900 hover:bg-blue-100">
-                <button on:click={() => selectQuestion(index)} class="w-full py-2 px-3 ">
-                    <span class="ml-3 block text-left truncate font-normal">{questionItem.text}</span>
+                <button on:click={() => selectQuestion(index)} class="w-full py-1 px-3">
+                    <span class="ml-1 w-56 block text-left font-normal">{questionItem.text}</span>
                 </button>
-                <label class="inline-flex items-center cursor-pointer">
+                <label class="absolute right-0 top-1/2 -translate-y-1/2 items-center cursor-pointer">
                     <input bind:checked={questionList[index]['open']} on:change={() => changeQopen(index)} type="checkbox" class="sr-only peer">
                     <div class="relative w-11 h-6 bg-gray-200 mr-2 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
@@ -105,7 +105,7 @@
         </ul>
         {/if}
     </div>
-    <span class="absolute top-0 left-80 group">
+    <span class="absolute top-0 left-80 group ml-2">
         <span class="whitespace-nowrap rounded bg-black px-2 py-1 text-white absolute top-14 left-1/2 -translate-x-1/2 before:absolute before:-translate-x-1/2 before:left-1/2 before:-top-2 before:border-4 before:border-transparent before:border-b-black opacity-0 group-hover:opacity-100 transition pointer-events-none">Show Chart</span>
         <button on:click={(showChart)} class="h-12 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full py-2.5 px-3">
             <svg class="w-6 h-6 text-gray-800 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -122,13 +122,13 @@
             {#if questionList[selected]['open']}<div class="font-extralight h-8 text-sm mr-2 px-3 py-1 rounded-full text-white bg-red-700">Open</div>
             {:else}<div class="font-extralight h-8 text-sm mr-2 px-3 py-1 rounded-full text-white bg-gray-500">Closed</div>
             {/if}
-            <h2>{questionName}</h2>
+            <h2 class="pr-8">{questionName}</h2>
         </div>
 		<Chart {room_id} {question_id}/>
         <div class="flex font-noto mt-3 px-6 py-2 border rounded-2xl border-gray-300">
             <h3 class="flex flex-col font-bold">
                 Open
-                <p class="font-light text-gray-500 text-sm">Accept answers from your auience.</p>
+                <p class="font-light text-gray-500 text-sm">Accept answers from your audience.</p>
             </h3>
             <label class="ml-auto my-auto cursor-pointer">
                 <input bind:checked={questionList[selected]['open']} on:change={() => changeQopen(selected)} type="checkbox" class="sr-only peer">
