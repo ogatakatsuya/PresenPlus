@@ -13,11 +13,11 @@
 
 <!-- New rectangle section - start -->
 <div class="header-banner flex items-center justify-center bg-gray-800 py-4 px-6 lg:px-12 font-home"style="line-height:1.13;">
-    <span class="text-gray-300 font-bold text-center text-[min(110px,13vw)] lg:max-w-2/3 lg:pl-16 mb-6">
+    <span class="text-gray-300 font-bold text-center text-[min(110px,13vw)] lg:max-w-2/3  mb-6">
         Speak.<br>Connect.<br>Interact.<br><span class="text-gradient text-[min(115px,13.5vw)] mb-6 lg:mb-10">Presen+ </span>
     </span>
 
-	<section class="flex justify-center items-start text-4xl mb-12 lg:pl-16">
+	<section class="flex justify-center items-start text-4xl mb-12 ">
         <div class="flex flex-col sm:flex-row sm:justify-center lg:flex-row gap-4">
             <a href="/create" class="inline-block bg-indigo-600 px-8 py-6 text-center font-roboto font-semibold text-gray-300  outline-none ring-gray-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-800 md:text-base no-underline rounded-full " style="font-size: min(24px,8vh); text-decoration: none; width:190px; height: 75px; flex; justify-content: center; align-items: center;">Try now</a>
             <a href="/about" class="inline-block bg-gray-300 px-8 py-6 text-center font-roboto font-semibold text-[#2a2c41] outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base no-underline rounded-full" style="font-size: min(24px,8vh); text-decoration: none; width:190px;height: 75px flex; justify-content: center; align-items: center;">More info</a>
@@ -106,16 +106,16 @@
 
 
 	.header-banner {
-		width: 100%;
-        height: 100vh ; /* ページ全体の3分の2の高さ */
+        width: 100%;
+        height: 100vh; /* ページ全体の3分の2の高さ */
         background-color: #1E1F23;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: center; /* 垂直方向の中央揃え */
+        align-items: center; /* 水平方向の中央揃え */
         padding: 20px; /* 必要に応じて余白を設定 */
-		
-	}
+        text-align: center; /* テキストの中央揃え */
+    }
 
 	.banner-text {
 		font-size: 50px; /* テキストの大きさを調整 */
