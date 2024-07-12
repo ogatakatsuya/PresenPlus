@@ -2,8 +2,10 @@
 	import {
 		addDoc,
 		collection,
+		doc,
+		runTransaction
 	} from "firebase/firestore";
-	import { db } from "$lib/firebase";
+	import { db, auth } from "$lib/firebase";
 	import { goto } from "$app/navigation";
 	import { createForm } from 'felte';
 	import { validator } from '@felte/validator-yup';
@@ -30,6 +32,7 @@
 		password: string;
 		description: string;
 		exist: boolean;
+		user_id: string;
 	}
 	let roomName: string = "";
 	let roomPassword: string = "";
@@ -47,7 +50,7 @@
 	})
 
 	const addRoom = async () => {
-		if( $isValid ) {
+		if (isValid) {
 			console.log(`form content posted: ${roomName} ${roomPassword} ${roomDescription}`);
 
 			const room: Room = {
@@ -55,10 +58,29 @@
 				password: roomPassword,
 				description: roomDescription,
 				exist: true,
+				user_id: user.uid,
 			};
 			try {
 				const docRef = await addDoc(collection(db, "Rooms"), room);
 				const room_id = docRef.id;
+
+				// Run a transaction to update the user's rooms array
+				await runTransaction(db, async (transaction) => {
+					const userRef = doc(db, "User", user.uid);
+					const userDoc = await transaction.get(userRef);
+
+					if (!userDoc.exists()) {
+						throw "User does not exist!";
+					}
+
+					const userData = userDoc.data();
+					const userRooms = userData.rooms || [];
+
+					transaction.update(userRef, {
+						rooms: [...userRooms, room_id]
+					});
+				});
+
 				goto(`/organizer/${room_id}`);
 				roomName = "";
 				roomPassword = "";
@@ -72,6 +94,7 @@
 		}
 	}
 </script>
+
 
 
 <div>
@@ -119,7 +142,9 @@
 				<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
 					<li class="block px-4 py-2 flex">
 						<div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-							<svg class="absolute w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+							<button>
+								<svg on:click={() => {goto(`user/${user.uid}`)}} class="absolute w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+							</button>
 						</div>
 						<p class="my-auto w-44 truncate ml-2 text-sm">{user.email}</p>
 					</li>
