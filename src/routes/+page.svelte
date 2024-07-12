@@ -60,12 +60,12 @@
 		
 	
 		<!-- product - start -->
-		<div >
-			<a href="./about#PresenroomFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
+		<div class="flex flex-col items-center">
+			<a href="./about#PresenroomFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100 lg:mb-3">
 			<img src="https://illustration-free.net/thumb/png/ifn1208.png" loading="lazy" alt="Photo by engin akyurt" class="h-80 w-80 object-cover rounded-lg object-center transition duration-200 group-hover:scale-110" />
 			</a>
 	
-			<div class="flex flex-col">
+			<div class="flex flex-col items-center">
 			<span class="text-lg text-gray-500 text-center">その１</span>
 			<a href="/about#PresenroomFeature" class="text-lg font-bold text-gray-800 text-center transition duration-100 hover:text-gray-500 lg:text-2xl break-words">パスワード制<br>プレゼンルーム作成</a>
 			</div>
@@ -73,12 +73,12 @@
 		<!-- product - end -->
 	
 		<!-- product - start -->
-		<div >
-			<a href="/about#ResultsFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
+		<div class="flex flex-col items-center">
+			<a href="/about#ResultsFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100  lg:mb-3">
 				<img src="https://iconbox.fun/wp/wp-content/uploads/1108_sy_m.png" loading="lazy" alt="Photo by engin akyurt" class="h-80 w-80 object-cover rounded-lg object-center transition duration-200 group-hover:scale-110" />
 			</a>
 	
-			<div class="flex flex-col">
+			<div class="flex flex-col items-canter">
 				<span class="text-lg text-gray-500 text-center">その２</span>
 				<a href="/about#ResultsFeature" class="text-lg font-bold text-gray-800 text-center transition duration-100 hover:text-gray-500 lg:text-2xl break-words">リアルタイム<br>質問・結果表示</a>
 			</div>
@@ -86,12 +86,12 @@
 			<!-- product - end -->
 	
 		<!-- product - start -->
-		<div >
-			<a href="/about#CommentFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
+		<div class="flex flex-col items-center">
+			<a href="/about#CommentFeature" class="group mb-2 overflow-hidden rounded-lg bg-gray-100  lg:mb-3">
 				<img src="https://iconbox.fun/wp/wp-content/uploads/1111_sy_m.png" loading="lazy" alt="Photo by engin akyurt" class="h-80 w-80 object-cover rounded-lg object-center transition duration-200 group-hover:scale-110" />
 			</a>
 	
-			<div class="flex flex-col">
+			<div class="flex flex-col items-center">
 				<span class="text-lg text-gray-500 text-center">その３</span>
 				<a href="/about#CommentFeature" class="text-lg font-bold text-gray-800 text-center transition duration-100 hover:text-gray-500 lg:text-2xl break-words">リアルタイム<br>コメント投稿・表示</a>
 			</div>
