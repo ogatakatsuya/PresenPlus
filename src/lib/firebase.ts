@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { getFirestore, type Firestore } from "firebase/firestore";
-import { getAuth, type Auth, GoogleAuthProvider } from "firebase/auth"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, type Auth, GoogleAuthProvider } from "firebase/auth";
+// Import environment variables
+import.meta.env;
 
 // Initialize Firebase
 export let app: FirebaseApp;
@@ -19,13 +19,12 @@ export async function initFirebaseApp() {
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-        apiKey: "AIzaSyCepCXy-HIFS467hjwKFevOH6afL1zSPFY",
-        authDomain: "semi-a-svelte.firebaseapp.com",
-        projectId: "semi-a-svelte",
-        storageBucket: "semi-a-svelte.appspot.com",
-        messagingSenderId: "678948804585",
-        appId: "1:678948804585:web:4e6e9c169890da3e885d78",
-        measurementId: "G-4MJLXHKFF4"
+        apiKey: "AIzaSyA1ijOIskK8Jvf92Vt1UwrgRVK_kd9u07U",
+        authDomain: "semi-a.firebaseapp.com",
+        projectId: "semi-a",
+        storageBucket: "semi-a.appspot.com",
+        messagingSenderId: "706668911926",
+        appId: "1:706668911926:web:48b6e465518a312015e797"
     };
 
     app = initializeApp(firebaseConfig);
