@@ -13,32 +13,32 @@
 
 <!-- New rectangle section - start -->
 <div class="header-banner flex items-center justify-center bg-gray-800 py-4 px-6 lg:px-12 font-home"style="line-height:1.13;">
-    <span class="text-gray-300 font-bold text-center text-[min(110px,13vw)] lg:max-w-2/3  mb-6">
-        Speak.<br>Connect.<br>Interact.<br><span class="text-gradient text-[min(115px,13.5vw)] mb-6 lg:mb-10">Presen+ </span>
+    <span class="text-gray-300 font-bold text-center text-[min(9vh,9vw)] lg:text-[min(110px,13vw)] lg:max-w-2/3  mb-6">
+        Speak.<br>Connect.<br>Interact.<br><span class="text-gradient text-[min(9.5vh,9.5vw)] lg:text-[min(115px,13.5vw)] mb-6 lg:mb-10">Presen+ </span>
     </span>
 
 	<section class="flex justify-center items-start text-4xl mb-12 ">
-        <div class="flex flex-col sm:flex-row sm:justify-center lg:flex-row gap-4">
-            <a href="/create" class="inline-block bg-indigo-600 px-8 py-6 text-center font-roboto font-semibold text-gray-300  outline-none ring-gray-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-800 md:text-base no-underline rounded-full " style="font-size: min(24px,8vh); text-decoration: none; width:190px; height: 75px; flex; justify-content: center; align-items: center;">Try now</a>
-            <a href="/about" class="inline-block bg-gray-300 px-8 py-6 text-center font-roboto font-semibold text-[#2a2c41] outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base no-underline rounded-full" style="font-size: min(24px,8vh); text-decoration: none; width:190px;height: 75px flex; justify-content: center; align-items: center;">More info</a>
-        </div>
+        <div class="flex flex-col sm:justify-center md:flex-row gap-2 lg:gamp-4">
+			<a href="/create" class="inline-block bg-indigo-600 px-8 py-6 text-center font-roboto font-semibold text-gray-300 text-[min(4vw,4vh)] lg:text-[min(24px,8vw)] outline-none ring-gray-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-800 md:text-base no-underline rounded-full" style="text-decoration: none; width: 9em; height: 2.5em; display: flex; justify-content: center; align-items: center;">Try now</a>
+			<a href="/about" class="inline-block bg-gray-300 px-8 py-6 text-center font-roboto font-semibold text-[#2a2c41] text-[min(4vw,4vh)] lg:text-[min(24px,8vw)] outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base no-underline rounded-full" style="text-decoration: none; width: 9em; height: 2.5em; display: flex; justify-content: center; align-items: center;">More info</a>
+		</div>		
     </section>
 </div>
 
 
 <div class="second-banner py-4 px-6 lg:px-12 bg-[#1e2738] font-home flex items-center justify-center">
 
-    <div class="grid place-items-center py-12 bg-gray-200 text-gray-800 rounded-lg mx-4 md:mx-auto md:max-w-5xl"style="width:80vw">
-		<h2 class="heading-6 font-home font-bold text-3xl mb-2 lg:mb-4">Presen+</h2>
-		<p class="text-gray-800 text-center text-lg lg:text-2xl">
+    <div class="grid place-items-center justify-center py-12 bg-gray-200 text-gray-800 rounded-lg mx-4 md:mx-auto h-[60vh] lg:h-[60vh] w-[80vw] lg:w-[95vw] max-w-7xl flex flex-col items-start">
+		<h2 class="heading-6 font-home font-bold text-[min(4vh,4vw)] lg:mb-4" style="font-size:min(6vh,6vw)">Presen+</h2>
+		<p class="text-gray-800 text-center text-[min(4.5vh,4.5vw)]">
 			このサービスは<br>
 			・パスワード制プレゼンルーム作成<br>
 			・リアルタイム質問・結果表示<br>
 			・リアルタイムコメント投稿<br>
-			で参加者の声をダイナミックに反映した<br>次世代プレゼン体験を実現します。
+			で参加者の声を反映した<br>次世代プレゼン体験を実現します。
 		</p>
-	</div>	
-    <div class="border-t-2 border-white mt-8 pb-12 mx-auto w-11/12"></div>
+	</div>
+	
 </div>
 
 
@@ -125,7 +125,7 @@
 
 	.second-banner {
 		width: 100%;
-        height: 50vh ; /* ページ全体の3分の2の高さ */
+        height: 70vh ; /* ページ全体の3分の2の高さ */
         flex-direction: column;
         justify-content: center;
         align-items: center;
