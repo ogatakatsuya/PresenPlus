@@ -56,7 +56,7 @@
 
     const fetchUserRooms = async () => {
         try {
-            const userRef = doc(db, "User", user.uid);
+            const userRef = doc(db, "Users", user.uid);
             const userDoc = await getDoc(userRef); //User/{user_id}のDocを取ってくる
 
             if (userDoc.exists()) {
@@ -107,10 +107,12 @@
                 <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
-        <div class="">
-            {#if user}<p class="text-3xl mb-2">{user.displayName}</p>
+        <div>
+            {#if user}
+            <p class="text-3xl mb-2">{#if user.displayName}{user.displayName}{:else}User{/if}</p>
             <p class="text-lg">{user.email}</p>
-            <p class="text-sm">Created at {new Date(user.metadata.creationTime).toLocaleDateString('ja-JP')}</p>{/if}
+            <p class="text-sm">Created at {new Date(user.metadata.creationTime).toLocaleDateString('ja-JP')}</p>
+            {/if}
         </div>
     </div>
     <div class="my-5 lg:mr-80 p-8 bg-white rounded-lg font-noto shadow">
@@ -118,6 +120,7 @@
     </div>
     <div class="my-5 px-4 py-4 bg-white rounded-lg font-noto shadow">
         <div class="px-4 max-h-96 overflow-y-scroll">
+        {#if roomDetails != []}
         <ul>
             {#each roomDetails as room}
                 {#if room}
@@ -235,6 +238,9 @@
                 {/if}
             {/each}
         </ul>
+        {:else}
+            <p class="ml-2 text-gray-400">There are no presentation room that you created.</p>
+        {/if}
         </div>
     </div>
     <div class="absolute right-20 top-32 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-64 font-noto hidden lg:block">
