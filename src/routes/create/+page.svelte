@@ -11,6 +11,7 @@
 	import { validator } from '@felte/validator-yup';
 	import * as yup from 'yup';
 	import Logout from "./_components/Logout.svelte";
+	import ProfileMenu from "./_components/profileMenu.svelte"
 	import { authStore } from "../../store";
 	import { onMount } from "svelte";
 
@@ -50,7 +51,7 @@
 	})
 
 	const addRoom = async () => {
-		if (isValid) {
+		if ($isValid) {
 			console.log(`form content posted: ${roomName} ${roomPassword} ${roomDescription}`);
 
 			const room: Room = {
@@ -116,7 +117,7 @@
 						{$errors.roomName}
 					</div>
 
-					<label for="name-input" class="block mb-2 text-base font-medium text-gray-900">Password</label>
+					<label for="password-input" class="block mb-2 text-base font-medium text-gray-900">Password</label>
 					<input bind:value={roomPassword} type="password" name="roomPassword" placeholder="Your room password" id="password-input"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 pl-4">
 					<div class="text-sm text-red-600 flex leading-6 mt-1 mb-5 ml-2" style="visibility: {$errors.roomPassword ? "visible" : "hidden"}">
 						<svg class="w-6 h-6 text-red-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -139,19 +140,7 @@
 			</div>
 
 			<div class="absolute right-6 top-24 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-64 font-noto hidden lg:block">
-				<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-					<li class="block px-4 py-2 flex">
-						<div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-							<button>
-								<svg on:click={() => {goto(`user/${user.uid}`)}} class="absolute w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-							</button>
-						</div>
-						<p class="my-auto w-44 truncate ml-2 text-sm">{user.email}</p>
-					</li>
-					<li>
-						<Logout mode="dropdown"/>
-					</li>
-				</ul>
+				<ProfileMenu {user}/>
 			</div>
 			<div class="block lg:hidden max-w-sm mx-auto ">
 				<Logout mode="button" />
@@ -166,12 +155,12 @@
 		<div class="text-column">
 			<p>You need to authenticate to use this content.</p>
 			<a href="/auth/login">
-				<button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+				<button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
 					Login
 				</button>
 			</a>
 			<a href="/auth/register">
-				<button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+				<button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
 					Sign up
 				</button>
 			</a>
