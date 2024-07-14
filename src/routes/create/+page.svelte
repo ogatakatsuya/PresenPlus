@@ -67,7 +67,7 @@
 
 				// Run a transaction to update the user's rooms array
 				await runTransaction(db, async (transaction) => {
-					const userRef = doc(db, "User", user.uid);
+					const userRef = doc(db, "Users", user.uid);
 					const userDoc = await transaction.get(userRef);
 
 					if (!userDoc.exists()) {

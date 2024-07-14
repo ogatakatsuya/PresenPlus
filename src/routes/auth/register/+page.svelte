@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {
-		addDoc,
-		collection,
+		doc,setDoc,
 	} from "firebase/firestore";
 	import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 	import { db, auth } from "$lib/firebase";
@@ -36,6 +35,7 @@
 				await sendEmailVerification(user);
 				email = "";
 				password = "";
+				await setDoc(doc(db, 'Users', user.uid), {'user_description': "I'm giving wonderful presentations!", rooms: []})
 				goto("/auth/confirm");
 			} catch (error) {
 				alert(error);
