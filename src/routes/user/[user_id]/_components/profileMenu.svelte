@@ -33,7 +33,8 @@
             displayName: username,
         }).then(() => {
             console.log("profile updated");
-        }).catch((error) => {
+
+        }).catch(() => {
             console.log("error");
         });
 
@@ -42,7 +43,7 @@
         }
 
         try {
-            const userRef = doc(db, "User", user.uid); // user.uid を特定の user_id に置き換える
+            const userRef = doc(db, "Users", user.uid); // typo修正
             await updateDoc(userRef, profile);
             showSettingModal = false;
         } catch (e) {

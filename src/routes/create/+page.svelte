@@ -102,7 +102,7 @@
 	{#if user === undefined}
 		<p>Loading...</p>
 	{:else if user}
-		{#if user.email}
+		{#if user.emailVerified}
 			<div class="max-w-sm mx-auto font-noto mt-10 mb-5">
 				<h1 class="font-noto font-bold text-lg relative mb-6 after:absolute after:-left-4 after:-right-4 after:-bottom-2 after:h-[2px] after:bg-gray-300">
 					Create Presentation Room
