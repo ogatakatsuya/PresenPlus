@@ -39,21 +39,21 @@
 
     <!-- Part 2 -->
     <div class="bg-gray-300 py-8">
-        <div class="part2 py-12 bg-gray-100 text-gray-800 shadow-lg rounded-lg mt-12 mx-1 md:mx-auto md:max-w-3xl lg:max-w-4xl lg:mx-auto">
-            <h2 class="text-3xl font-bold mb-8 animate-slideInFromTop font-home">アプリのサービス機能</h2>
+        <div class="part2 py-12 bg-gray-100 text-gray-800 shadow-lg rounded-lg mt-12 mx-4 md:mx-auto md:max-w-3xl lg:max-w-4xl lg:mx-auto">
+            <h2 class="text-3xl font-bold mb-8 animate-slideInFromTop font-roboto">アプリのサービス機能</h2>
             <div class="flex flex-col justify-around items-center">
                 {#each features as feature, index}
                     <div class="flex flex-col lg:flex-row items-center mb-4 w-full lg:w-5/6 p-4" id={feature.id} use:registerElement>
-                        <div class="relative w-2/3 lg:w-3/7 mt-8">
+                        <div class="relative w-2/3 lg:w-3/7 mt-8 items-center">
                             <img src={feature.image} alt={feature.title} class="mb-4 animate-fadeIn max-w-full h-auto rounded-lg shadow-md hover:border-gray-300 hover:border-4 transition-transform duration-300 ease-in-out hover:scale-105" />
                             <div class="absolute -top-4 -left-4 bg-gray-800 text-white px-2 py-1 rounded-br-lg z-10">
                                 機能 {index + 1}
                             </div>
                         </div>
-                        <div class="w-2/3 lg:w-4/7 lg:ml-12">
-                            <h3 class="text-left text-2xl font-bold text-indigo-600 mb-2 font-home whitespace-nowrap">{feature.title}</h3>
-                            <h4 class="text-left text-lg font-bold text-gray-600 mb-4 font-home">{feature.subtitle}</h4>
-                            <div class="text-left text-gray-700 leading-loose font-home">
+                        <div class="w-4/5 sm:w-2/3 lg:w-4/7 lg:ml-12">
+                            <h3 class="text-left text-2xl font-bold text-indigo-600 mb-2 font-openSans sm:whitespace-nowrap">{feature.title}</h3>
+                            <h4 class="text-left text-lg font-bold text-gray-600 mb-4 font-openSans">{feature.subtitle}</h4>
+                            <div class="text-left text-gray-700 leading-loose font-openSans">
                                 {@html feature.content}
                             </div>    
                         </div>
