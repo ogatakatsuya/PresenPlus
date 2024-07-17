@@ -30,8 +30,8 @@
     <!-- Part 1 -->
      <div class="bg-gray-800 pt-16 pb-8">
         <div class="part1 py-12 bg-gray-200 text-gray-800 shadow-lg rounded-lg mx-4 md:mx-auto md:max-w-3xl">
-            <h1 class="text-4xl font-bold mb-8 animate-slideInFromTop font-roboto">Presen+ 概要</h1>
-            <p class="px-4 lg:px-0 text-lg mb-16 leading-relaxed max-w-prose m-auto text-left animate-fadeIn font-openSans">Presen+ はプレゼンターとオーディエンスによるインタラクティブな対話を可能にするためのツールです。リアルタイムな投票結果表示やコメント表示によりプレゼンを建設的なものにし、パスワードによる入室制限でセキュアで安心なプレゼン体験を提供します。</p>
+            <h1 class="text-4xl font-bold mb-8 animate-slideInFromTop font-home">Presen+ 概要</h1>
+            <p class="px-4 lg:px-0 text-lg mb-16 leading-relaxed max-w-prose m-auto text-left animate-fadeIn font-home">Presen+はプレゼンターとオーディエンスによるインタラクティブな対話を可能にするためのツールです。リアルタイムな投票結果表示やコメント表示によりプレゼンを建設的なものにし、パスワードによる入室制限でセキュアで安心なプレゼン体験を提供します。</p>
         </div>
             <!-- Divider -->
         <div class="border-t-2 border-white mt-8 pb-12 mx-auto w-11/12 md:max-w-3xl"></div>

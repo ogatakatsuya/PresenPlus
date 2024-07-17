@@ -26,7 +26,7 @@
 			</a>
 		</div>
 	{#if width>768}
-		<nav>
+		<nav class="font-home">
 			<ul>
 				<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 					<a href="/">Home</a>
@@ -43,7 +43,7 @@
 			</ul>
 		</nav>
 	{:else}
-		<div class="hamburger-container">
+		<div class="hamburger-container font-home">
 			<Hamburger bind:open
 			--color =  "#E5E1D3"
 			--padding = "0px"/>
