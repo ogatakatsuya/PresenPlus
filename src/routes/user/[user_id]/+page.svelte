@@ -115,12 +115,18 @@
             {/if}
         </div>
     </div>
+    {#if user_description !== ""}
     <div class="my-5 lg:mr-80 p-4 sm:p-8 bg-white rounded-lg font-noto shadow">
         {user_description}
     </div>
+    {:else}
+    <div class="my-5 lg:mr-80 p-4 sm:p-8 bg-white rounded-lg font-noto shadow text-gray-400">
+        Tell me about yourself!
+    </div>
+    {/if}
     <div class="my-5 px-4 py-4 bg-white rounded-lg font-noto shadow">
         <div class="sm:px-4 max-h-96 overflow-y-scroll">
-        {#if roomDetails != []}
+        {#if roomDetails.length !== 0}
         <ul>
             {#each roomDetails as room}
                 {#if room}
@@ -239,7 +245,7 @@
             {/each}
         </ul>
         {:else}
-            <p class="ml-2 text-gray-400">There are no presentation room that you created.</p>
+            <p class="ml-2 text-gray-400">There are no presentation rooms that you created. Let's make a presentation!</p>
         {/if}
         </div>
     </div>
