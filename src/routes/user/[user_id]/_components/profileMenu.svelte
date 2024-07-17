@@ -16,7 +16,7 @@
     let userdescription: String;
 
     const schema = yup.object({
-		userName: yup.string().required(),
+		userName: yup.string().required().max(12, "username must be less than 12 characters"),
 		userDescription: yup.string().required(),
 	});
 
@@ -54,9 +54,9 @@
 </script>
 
 {#if user}
-<ul class="py-2 text-sm text-gray-700">
+<ul class="py-2 text-sm text-gray-700 hidden sm:block">
     <li>
-        <button on:click={() => {goto(`./${user.uid}`)}} class="flex hover:bg-gray-100 px-4 py-2 w-full">
+        <button on:click={() => {goto(`./${user.uid}`)}} class="hover:bg-gray-100 px-4 py-2 w-full hidden lg:flex">
             <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
                 <svg class="absolute w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
             </div>
@@ -70,6 +70,19 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
             </svg>
             <p class="my-auto">Settings</p>
+        </button>
+    </li>
+    <li>
+        <Logout mode="dropdown"/>
+    </li>
+</ul>
+<ul class="py-2 text-sm text-gray-700 block sm:hidden">
+    <li>
+        <button on:click={() => {userdescription = user_description; username = user.displayName; showSettingModal = true;}} class="flex sm:pl-6 p-2 hover:bg-gray-100 rounded-full m-1 sm:w-full bg-white shadow">
+            <svg class="w-[28px] h-[28px] text-gray-500 sm:mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+            </svg>
         </button>
     </li>
     <li>
