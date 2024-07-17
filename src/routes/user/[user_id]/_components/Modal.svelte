@@ -33,6 +33,13 @@
 		border: none;
 		padding: 0;
 	}
+	@media (max-width: 640px) { 
+		dialog {
+			min-width: 0;
+			width: 90vw;
+			max-height: 80%;
+		}
+	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
 	}

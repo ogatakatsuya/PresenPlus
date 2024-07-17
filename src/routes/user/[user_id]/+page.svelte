@@ -99,32 +99,38 @@
 </script>
 
 
-{#if user != undefined}
-<div class="w-full p-20">
-    <div class="w-full flex flex-row font-noto items-center">
-        <div class="w-28 h-28 bg-white rounded-full flex justify-center items-center mr-8 shadow">
-            <svg class="w-[96px] h-[96px] text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+{#if user !== undefined}
+<div class="w-full p-4 sm:p-10 md:p-20">
+    <div class="ml-2 mt-2 sm:m-0 w-full flex flex-row font-noto sm:items-center">
+        <div class="min-w-14 h-14 sm:min-w-28 sm:h-28 bg-white rounded-full flex justify-center items-center mr-4 sm:mr-8 shadow">
+            <svg class="w-[48px] h-[48px] sm:w-[96px] sm:h-[96px] text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
-        <div>
+        <div class="sm:overflow-auto mr-16 sm:mr-40">
             {#if user}
-            <p class="text-3xl mb-2">{#if user.displayName}{user.displayName}{:else}User{/if}</p>
-            <p class="text-lg">{user.email}</p>
-            <p class="text-sm">Created at {new Date(user.metadata.creationTime).toLocaleDateString('ja-JP')}</p>
+            <p class="text-3xl my-2 mb-5 sm:mb-2">{#if user.displayName}{user.displayName}{:else}User{/if}</p>
+            <p class="text-sm sm:text-lg relative -left-14 sm:-left-0">{user.email}</p>
+            <p class="text-sm relative -left-14 sm:-left-0">Created at {new Date(user.metadata.creationTime).toLocaleDateString('ja-JP')}</p>
             {/if}
         </div>
     </div>
-    <div class="my-5 lg:mr-80 p-8 bg-white rounded-lg font-noto shadow">
+    {#if user_description !== ""}
+    <div class="my-5 lg:mr-80 p-4 sm:p-8 bg-white rounded-lg font-noto shadow">
         {user_description}
     </div>
+    {:else}
+    <div class="my-5 lg:mr-80 p-4 sm:p-8 bg-white rounded-lg font-noto shadow text-gray-400">
+        Tell me about yourself!
+    </div>
+    {/if}
     <div class="my-5 px-4 py-4 bg-white rounded-lg font-noto shadow">
-        <div class="px-4 max-h-96 overflow-y-scroll">
-        {#if roomDetails != []}
+        <div class="sm:px-4 max-h-96 overflow-y-scroll">
+        {#if roomDetails.length !== 0}
         <ul>
             {#each roomDetails as room}
                 {#if room}
-                    <li class="py-5 border-b flex items-center">
+                    <li class="sm:py-5 border-b sm:flex items-center">
                         <div>
                             <h2 class="font-bold text-lg relative mb-2 pr-6 flex">
                                 {#if room.exist}<div class="font-extralight text-sm mr-2 px-3 py-1 rounded-full text-white bg-red-600">Open</div>
@@ -220,10 +226,10 @@
                             
                         </div>
                         {#if room.exist}
-                        <div class="ml-auto flex flex-col">
-                            <button type="button" on:click={() => goto(`../organizer/${room.roomid}`)} class="text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base leading-6 px-5 py-2.5 mb-1 text-center inline-flex items-center">
+                        <div class="ml-auto flex justify-center sm:flex-col gap-1">
+                            <button type="button" on:click={() => goto(`../organizer/${room.roomid}`)} class="text-white font-noto bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base leading-6 px-5 py-2.5 sm:mb-1 text-center inline-flex items-center justify-center grow">
                                 Join
-                                <svg class="ml-1 w-6 h-6 text-white ml-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <svg class="ml-1 w-6 h-6 text-white sm:ml-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
                                 </svg>
                             </button>
@@ -239,26 +245,43 @@
             {/each}
         </ul>
         {:else}
-            <p class="ml-2 text-gray-400">There are no presentation room that you created.</p>
+            <p class="ml-2 text-gray-400">There are no presentation rooms that you created. Let's make a presentation!</p>
         {/if}
         </div>
     </div>
-    <div class="absolute right-20 top-32 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-64 font-noto hidden lg:block">
+    <div class="absolute right-4 sm:right-10 top-24 md:right-20 md:top-32 sm:bg-white sm:rounded-lg sm:shadow sm:w-36 lg:w-64 font-noto z-0">
         <ProfileMenu {user} {user_description}/>
     </div>
 </div>
 {:else}
-<div class="text-column">
-    <p>You need to authenticate to use this content.</p>
-    <a href="/auth/login">
-        <button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            Login
-        </button>
-    </a>
-    <a href="/auth/register">
-        <button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            Sign up
-        </button>
-    </a>
+<div class="text-column font-noto">
+    <h1 class="text-2xl font-bold">Loading...</h1>
+    <p class="text-sm sm:text-base my-4 text-center">If the screen does not change after waiting one minute, <br>please log in again using the button below.</p>
+    <div class="mx-auto w-4/5">
+        <a href="/auth/login">
+            <button
+                class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <svg class="w-8 h-8 -ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                </svg>
+                <span class="ml-3">
+                    Log In
+                </span>
+            </button>
+        </a>
+    </div>
+    <div class="mx-auto w-4/5">
+        <a href="/auth/register">
+            <button
+                class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <svg class="w-8 h-8 -ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+                <span class="ml-3">
+                    Sign Up
+                </span>
+            </button>
+        </a>
+    </div>
 </div>
 {/if}

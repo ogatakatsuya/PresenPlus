@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { auth } from "$lib/firebase";
     import { signOut } from "firebase/auth";
 
@@ -7,6 +8,7 @@
     const clickHandler = () => {
         signOut(auth).then(() => {
             console.log("sign out successfully");
+            goto('/');
         }).catch((error) => {
             alert(error)
         });
@@ -14,11 +16,11 @@
 </script>
 
 {#if mode === "dropdown"}
-<button on:click={clickHandler} class="flex pl-6 p-2 hover:bg-gray-100 w-full border-y">
-    <svg class="w-[28px] h-[28px] text-gray-500 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+<button on:click={clickHandler} class="flex m-1 sm:m-0 sm:pl-6 p-2 hover:bg-gray-100 sm:w-full sm:border-y bg-white rounded-full sm:rounded-none shadow sm:shadow-none">
+    <svg class="w-[28px] h-[28px] text-gray-500 sm:mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
     </svg>
-    <p class="my-auto">Log Out</p>
+    <p class="my-auto hidden sm:inline">Log Out</p>
 </button>
 {:else if mode === "button"}
 <button on:click={clickHandler} class="flex text-gray-500 bg-white hover:bg-gray-100 border border-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 justify-center font-noto">
