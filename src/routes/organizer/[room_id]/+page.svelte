@@ -16,6 +16,7 @@
 	import { createForm } from 'felte';
 	import { validator } from '@felte/validator-yup';
 	import * as yup from 'yup';
+	import { onMount } from "svelte";
 
 	type Comment = {
 		id: string;
@@ -126,6 +127,13 @@
 			document.addEventListener('wheel', noscroll, {passive: false});
 		}
 	}
+
+	onMount(() => {
+		return () => {
+            document.removeEventListener('touchmove', noscroll);
+			document.removeEventListener('wheel', noscroll);
+        };
+	});
 </script>
 
 <svelte:head>
