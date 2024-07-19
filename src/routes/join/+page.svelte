@@ -6,9 +6,11 @@
         QuerySnapshot
     } from "firebase/firestore";
     import { goto } from "$app/navigation";
-    import { db } from "$lib/firebase";
     import Modal from './_components/Modal.svelte';
-    import neon1 from '$lib/images/neon-1.jpg';
+    import roomimage from '$lib/images/roomimage.png';
+    import { getdb } from "$lib/firebase";
+    import { onMount } from "svelte";
+    import type { Firestore } from "firebase/firestore/lite";
 
     type Room = {
         id: string;
@@ -24,25 +26,28 @@
     let filteredRoomList: Room[] = [];
     let errorMessage = "";
     let searchQuery = "";
-
-    onSnapshot(
-        query(collection(db, "Rooms")),
-        (snapshot: QuerySnapshot): any => {
-            roomList = snapshot.docs.map(doc => {
-                const data = doc.data();
-                const item: Room = {
-                    id: doc.id,
-                    name: data.name,
-                    password: data.password,
-                    description: data.description,
-                    exist: data.exist,
-                    showModal: false,
-                };
-                return item;
-            });
-            filterRooms();
-        }
-    );
+    let db:Firestore;
+    onMount(async () => {
+        db = await getdb();
+        onSnapshot(
+            query(collection(db, "Rooms")),
+            (snapshot: QuerySnapshot): any => {
+                roomList = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const item: Room = {
+                        id: doc.id,
+                        name: data.name,
+                        password: data.password,
+                        description: data.description,
+                        exist: data.exist,
+                        showModal: false,
+                    };
+                    return item;
+                });
+                filterRooms();
+            }
+        );
+    });
 
     const authenticatePassword = (password: string, room_id: string) => {
         if (roomPassword === password) {
@@ -87,7 +92,7 @@
         {#if room.exist}
         <div class="flex sm:w-72 w-full sm:flex-col flex-row overflow-hidden rounded-lg shadow-lg">
             <div class="hidden sm:block flex-shrink-0">
-                <img class="object-cover sm:w-full sm:h-48 w-24 h-full" src="{neon1}" alt="">
+                <img class="object-cover sm:w-full sm:h-48 w-24 h-full" src="{roomimage}" alt="">
             </div>
             <div class="flex sm:flex-col flex-row justify-between flex-1 p-6 sm:pr-6 pr-14 bg-white relative font-noto">
                 <div class="flex-1">

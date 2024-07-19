@@ -32,4 +32,9 @@ export async function initFirebaseApp() {
     auth = getAuth(app);
 }
 
+export async function getdb() {
+    db = await getFirestore(app);
+    return db;
+}
+
 initFirebaseApp();

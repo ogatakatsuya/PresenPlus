@@ -30,13 +30,15 @@
 
     <div class="grid place-items-center justify-center py-12 bg-gray-200 text-gray-800 rounded-lg mx-4 md:mx-auto h-[60vh] lg:h-[60vh] w-[80vw] lg:w-[95vw] max-w-7xl min-h-[500px] flex flex-col items-start">
 		<h2 class="heading-6 font-home font-bold text-xl md:text-5xl lg:mb-4">Presen+</h2>
-		<p class="text-gray-800 text-center text-lg md:text-4xl">
-			このサービスは<br>
-			・パスワード制プレゼンルーム作成<br>
-			・リアルタイム質問・結果表示<br>
-			・リアルタイムコメント投稿<br>
-			で参加者の声を反映した<br>次世代プレゼン体験を実現します。
-		</p>
+		<div class="text-gray-800 text-center text-lg md:text-3xl">
+			<p>このサービスは</p>
+			<ul class="text-left my-3">
+				<li>・パスワード制プレゼンルーム作成</li>
+				<li>・リアルタイム質問・結果表示</li>
+				<li>・リアルタイムコメント投稿</li>
+			</ul>
+			<p>で参加者の声を反映した<br><span class="font-bold text-xl md:text-4xl">次世代プレゼン体験</span>を実現します。</p>
+		</div>
 	</div>
 	
 </div>
