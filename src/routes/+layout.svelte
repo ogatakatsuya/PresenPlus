@@ -41,7 +41,7 @@
 		width: 100%;
 		margin: 0 auto;
 		box-sizing: border-box;
-		min-height: calc(100vh + 100px); /* ここを変更 */
+		min-height: 100vh; /* ここを変更 */
 	}
 
 	footer {

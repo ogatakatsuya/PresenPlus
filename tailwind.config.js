@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 export default {
   content: ["./src/**/*.{js,ts,svelte}", "./src/app.html"],
   theme: {
@@ -29,8 +31,9 @@ export default {
       },
       fontFamily: {
         noto: ["Noto Sans JP", "Verdana", "Roboto", "Droid Sans", "游ゴシック", "YuGothic", "メイリオ", "Meiryo", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
+        roboto: ["Roboto", "sans-serif","Noto Serif JP"],
         openSans: ["Open Sans", "sans-serif"],
+        home:["Raleway","Noto Serif JP"],
       },
     },
   },
