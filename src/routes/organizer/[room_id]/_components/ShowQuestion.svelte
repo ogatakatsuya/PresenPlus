@@ -90,7 +90,7 @@
             </span>
         </button>
         {#if showQ}
-        <ul class="mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <ul class="scrollable mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             {#each questionList as questionItem, index}
             <div class="flex relative cursor-default select-none w-full text-gray-900 hover:bg-blue-100">
                 <button on:click={() => selectQuestion(index)} class="w-full py-1 px-3">

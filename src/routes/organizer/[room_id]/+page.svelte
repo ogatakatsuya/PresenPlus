@@ -114,7 +114,12 @@
 		}
 	);
 
-	function noscroll(e: Event){e.preventDefault();}
+	function noscroll(e: Event){
+		const target = e.target as HTMLElement;
+		if (target && !target.closest('.scrollable')) {
+			e.preventDefault();
+		}
+	}
 	function presentation() {
 		if(makingPresen){
 			makingPresen = false;
